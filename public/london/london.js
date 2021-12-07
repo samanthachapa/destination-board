@@ -11,6 +11,7 @@ window.addEventListener('load', function () {
     }   
 
     let socket = io('/london');
+    let username = prompt("Enter a username" , "Username");
 
     socket.on('connect', function () {
         console.log("Connected");
@@ -32,7 +33,7 @@ window.addEventListener('load', function () {
 
         let currDestination = data.destination;
         let destinationElement = document.createElement('p');
-        destinationElement.innerHTML = currDestination;
+        destinationElement.innerHTML = data.username + ": " + currDestination;
         //Adding the client color to the destination element that holds the data entered
         destinationElement.style.color = clientColor;
 
@@ -45,7 +46,7 @@ window.addEventListener('load', function () {
 
     submitButton.addEventListener('click', function () {
         let myDestination = userDestination.value;
-        let obj = { "destination": myDestination };
+        let obj = { "destination": myDestination, "username": username};
  
         socket.emit('destination', obj);
     });
